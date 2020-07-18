@@ -34,7 +34,7 @@ const scrap = (url) => {
                 data.url = $('meta[property="og:url"]').attr('content') || "No title available";
 
                 // deleting after we have read the file
-                fs.unlinkSync(path);
+                // fs.unlinkSync(path);
 
                 resolve(data);
 
