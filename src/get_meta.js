@@ -1,17 +1,28 @@
 // parser
 const cheerio = require('cheerio');
-let data = {
-    time: Date.now()
-};
+const { urlencoded } = require('express');
 
 const meta_info = (doc) => {
     // use html parser to get meta tags value
     let $ = cheerio.load(doc);
 
-    data.title = $('meta[property="og:title"]').attr('content') || $('title').text() || "No title available";
-    data.description = $('meta[property="og:description"]').attr('content') || "No description available";
-    data.image = $('meta[property="og:image"]').attr('content') || "No image available";
-    data.url = $('meta[property="og:url"]').attr('content') || "No title available";
+    // values for the meta tags
+    let title = $('meta[property="og:title"]').attr('content') || $('title').text() || "undefined";
+
+    let description = $('meta[property="og:description"]').attr('content') || "undefined";
+
+    let image = $('meta[property="og:image"]').attr('content') || "undefined";
+
+    let url = $('meta[property="og:url"]').attr('content') || "undefined";
+
+    // constructing the actual json to send
+    let data = {
+        "time": Date.now(),
+        "title": title,
+        "description": description,
+        "image": image,
+        "url": url
+    };
 
     return data;
 }
