@@ -21,9 +21,9 @@ app.listen(port, () => console.log(`Serving at : http://localhost:${port}`));
 
 // handle post request
 app.post('/scrape', async (req, res) => {
-    let data = await scrapper(req.body.url);
-    console.log(data);
-    res.json({ "url": data });
+    // let data = await scrapper(req.query.url);
+    console.log(req.query);
+    res.json({ "url": "data" });
 });
 
 process.on('uncaughtException', function (err) {

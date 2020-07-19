@@ -1,17 +1,20 @@
 
 const get_data = async () => {
     let ur = document.getElementById("url");
-    let res = await fetch("scrape", {
+    console.log(ur.value);
+    let data = { "ur": ur.value };
+    fetch('/scrape', {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            url: ur.value
-        })
-    });
-    let data = await res.text();
-    console.log(data);
+        query: JSON.stringify(data)
+    }).then((res) => {
+        console.log("this is res", res.json());
+    }).catch((err) => {
+        console.log(err);
+    })
 
-    document.getElementById("output").innerText = data;
+    // document.getElementById("output").innerText = data;
 }

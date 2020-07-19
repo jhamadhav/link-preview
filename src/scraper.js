@@ -4,7 +4,6 @@ const path = "./index.html";
 
 // parser
 const cheerio = require('cheerio');
-const writeStream = fs.createWriteStream(path, "utf-8");
 let data = {
     time: Date.now()
 };
@@ -14,6 +13,8 @@ const scrap = (url) => {
     return new Promise((resolve, reject) => {
         // request function
         const req = https.request(url, (res) => {
+            const writeStream = fs.createWriteStream(path, "utf-8");
+
             // get status code
             console.log('statusCode:', res.statusCode);
 
@@ -34,7 +35,7 @@ const scrap = (url) => {
                 data.url = $('meta[property="og:url"]').attr('content') || "No title available";
 
                 // deleting after we have read the file
-                // fs.unlinkSync(path);
+                fs.unlinkSync(path);
 
                 resolve(data);
 
