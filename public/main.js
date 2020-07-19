@@ -37,9 +37,16 @@ const send_data = async (url) => {
 
 // get preview function
 const get_preview = async (url) => {
+
     // show loading while content loads
     let title = document.getElementById("title");
     title.innerText = "Loading...";
+
+    let description = document.getElementById("description");
+    description.innerText = "Almost there";
+
+    let url2 = document.getElementById("url");
+    url2.innerText = "Just a sec...!";
 
     // if it already exists then don't send request to the server
     if (!links.hasOwnProperty(url)) {

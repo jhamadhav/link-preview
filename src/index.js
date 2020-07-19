@@ -50,7 +50,7 @@ app.post("/api", async (req, res) => {
         // if url entered is wrong then a follow back json
         let err_res = {
             title: "Error : 404",
-            description: "URL is incorrect"
+            description: "URL is incorrect | Try adding https protocol"
         }
         res.json(err_res);
     }
@@ -63,7 +63,7 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 
 // function to check url
 const validURL = (str) => {
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+    var pattern = new RegExp('^(https:\\/\\/){1}' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
