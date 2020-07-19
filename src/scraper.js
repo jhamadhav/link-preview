@@ -1,12 +1,6 @@
 const https = require("https");
 const fs = require("fs");
-const path = "./index.html";
-
-// parser
-const cheerio = require('cheerio');
-let data = {
-    time: Date.now()
-};
+const path = "./temp.html";
 
 // actual scrape function
 const scrap = (url) => {
@@ -16,30 +10,34 @@ const scrap = (url) => {
             const writeStream = fs.createWriteStream(path, "utf-8");
 
             // get status code
-            console.log('statusCode:', res.statusCode);
+            let status = res.statusCode;
+            // console.log('statusCode:', status);
 
-            // writing the file
-            res.pipe(writeStream);
+            // if status is 200 i.e everything is fine
+            if (status >= 200 && status <= 299) {
+                // writing the file
+                res.pipe(writeStream);
 
-            //once it has been written reading it
-            writeStream.on('finish', () => {
+                //once it has been written reading it
+                writeStream.on('finish', () => {
 
-                let res = fs.readFileSync(path, "utf-8");
-                // console.log(readStream);
+                    let res = fs.readFileSync(path, "utf-8");
+                    // console.log(readStream);
 
-                // use html parser to get meta tags value
-                let $ = cheerio.load(res.toString());
-                data.title = $('meta[property="og:title"]').attr('content') || $('title').text() || "No title available";
-                data.description = $('meta[property="og:description"]').attr('content') || "No description available";
-                data.image = $('meta[property="og:image"]').attr('content') || "No image available";
-                data.url = $('meta[property="og:url"]').attr('content') || "No title available";
+                    // deleting after we have read the file
+                    // fs.unlinkSync(path);
 
-                // deleting after we have read the file
-                fs.unlinkSync(path);
+                    resolve(res.toString());
 
-                resolve(data);
-
-            });
+                });
+            } else if (status >= 300 && status <= 399) {
+                let moved_url = res.headers.location;
+                console.log(moved_url);
+                resolve(scrap(moved_url));
+            } else {
+                console.log(status);
+                console.log(res.headers);
+            }
 
         });
 

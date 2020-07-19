@@ -1,7 +1,8 @@
 const express = require("express");
-const scraper = require("./scraper");
 const bodyParser = require("body-parser");
 const app = express();
+const scraper = require("./scraper");
+const get_meta = require("./get_meta");
 
 // port infos
 const port = process.envPORT || 3000;
@@ -17,8 +18,9 @@ app.get("/", (request, response) => {
 
 app.post("/api", async (req, res) => {
     let url = req.body.url;
-    console.log(url);
-    let data = await scraper(url);
+    let doc = await scraper(url);
+    let data = get_meta(doc);
+    console.log(data);
     res.json(data);
 });
 
