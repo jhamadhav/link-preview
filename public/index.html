@@ -1,21 +1,28 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Scrapper</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A cool thing made with Glitch" />
+
+    <title>Web scraper</title>
+
+    <script src="./main.js" defer></script>
 </head>
 
 <body>
-    <h1>Web Scrapper</h1>
-
-    <input type="text" id="url" value="https://jhamadhav.com/">
-    <button type="submit" onclick="get_data()">Done</button>
-
-    <div id="output"></div>
-    <!-- script tag -->
-    <script src="main.js"></script>
+    <h1>Web scraper</h1>
+    <input type="text" id="url" value="https://jhamadhav.com" />
+    <button onclick="send_data()">
+        send
+    </button>
+    <div id="output">
+        output comes here
+    </div>
 </body>
 
 </html>

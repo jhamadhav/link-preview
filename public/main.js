@@ -1,20 +1,15 @@
-
-const get_data = async () => {
-    let ur = document.getElementById("url");
-    console.log(ur.value);
-    let data = { "ur": ur.value };
-    fetch('/scrape', {
+const send_data = async () => {
+    let url = document.getElementById("url");
+    let data = { url: url.value };
+    let options = {
         method: "POST",
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
-        query: JSON.stringify(data)
-    }).then((res) => {
-        console.log("this is res", res.json());
-    }).catch((err) => {
-        console.log(err);
-    })
+        body: JSON.stringify(data)
+    };
+    let res = await fetch("/api", options);
 
-    // document.getElementById("output").innerText = data;
-}
+    let d = await res.json();
+    document.getElementById("output").innerText = JSON.stringify(d);
+};

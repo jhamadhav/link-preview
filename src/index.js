@@ -1,32 +1,26 @@
-const express = require('express');
-const scrapper = require("./scraper");
-const bodyParser = require('body-parser');
+const express = require("express");
+const scraper = require("./scraper");
+const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.PORT || 3000;
 
-//  The body-parser middleware  here
+// port infos
+const port = process.envPORT || 3000;
+
 app.use("/", bodyParser.urlencoded({ extended: false }));
+app.use(express.static("public"));
+app.use(express.json());
 
-// for static files
-app.use("/", express.static(__dirname + "/../public"))
 
-// our main webpage
-app.get('/', function (req, res) {
-    let absolutePath = __dirname + "/../public/index.html";
-    res.sendFile(absolutePath);
+app.get("/", (request, response) => {
+    response.sendFile(__dirname + "/public/index.html");
 });
 
-// to listen to
-app.listen(port, () => console.log(`Serving at : http://localhost:${port}`));
-
-// handle post request
-app.post('/scrape', async (req, res) => {
-    // let data = await scrapper(req.query.url);
-    console.log(req.query);
-    res.json({ "url": "data" });
+app.post("/api", async (req, res) => {
+    let url = req.body.url;
+    console.log(url);
+    let data = await scraper(url);
+    res.json(data);
 });
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
-});
-
+// listen for requests :)
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
