@@ -8,21 +8,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="A cool thing made with Glitch" />
-
+    <link rel="stylesheet" href="./main.css">
     <title>Web scraper</title>
 
     <script src="./main.js" defer></script>
 </head>
 
 <body>
-    <h1>Web scraper</h1>
-    <input type="text" id="url" value="https://jhamadhav.com" />
-    <button onclick="send_data()">
-        send
-    </button>
-    <div id="output">
-        output comes here
-    </div>
+    <h1>Link Previewer</h1>
+    <main id="link-preview">
+        <div class="data">
+            <div id="title">Title comes here</div>
+            <hr>
+            <div id="description">Here goes description : Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry.
+            </div>
+            <div id="url">Here comes the actual url</div>
+        </div>
+        <div class="img">
+            <img src="./images/empty.png" alt="preview image" id="image">
+        </div>
+    </main>
+    <section>
+        <input type="url" id="inp" placeholder="Preview Link">
+        <button id="search">Search</button>
+    </section>
+    <ul>
+        <li><a href="https://google.com">Google link</a></li>
+        <li><a href="https://jhamadhav.com/">Madhav jha</a></li>
+        <li><a href="https://jhamadhav.com/2048/">Game 2048</a></li>
+        <li><a href="https://jhamadhav.com/password-generator/">Password generator</a></li>
+        <li><a href="https://www.facebook.com/">fb link</a></li>
+    </ul>
 </body>
 
 </html>

@@ -18,10 +18,16 @@ app.get("/", (request, response) => {
 
 app.post("/api", async (req, res) => {
     let url = req.body.url;
-    let doc = await scraper(url);
-    let data = get_meta(doc);
-    console.log(data);
-    res.json(data);
+    console.log(url);
+    if (url) {
+        let doc = await scraper(url);
+        let data = get_meta(doc);
+        console.log(data);
+        res.json(data);
+    } else {
+        res.json({ response: "Internal Error" });
+    }
+
 });
 
 // listen for requests :)
