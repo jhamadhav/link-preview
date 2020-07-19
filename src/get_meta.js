@@ -1,6 +1,5 @@
 // parser
 const cheerio = require('cheerio');
-const { urlencoded } = require('express');
 
 const meta_info = (doc, url0) => {
     // use html parser to get meta tags value
@@ -16,14 +15,14 @@ const meta_info = (doc, url0) => {
     let url = $('meta[property="og:url"]').attr('content') || url0;
 
     // constructing the actual json to send
+    let msec_in_7days = 7 * 24 * 60 * 60 * 1000;
     let data = {
-        "time": Date.now(),
+        "time": Date.now() + msec_in_7days,
         "title": title,
         "description": description,
         "image": image,
         "url": url
     };
-
     return data;
 }
 
