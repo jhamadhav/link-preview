@@ -1,12 +1,12 @@
 // global link preview list
 let links = {
-    "https://google.com/": {
-        "time": "1222",
-        "title": "Google",
-        "description": "search what you want.",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-        "url": "https://google.com"
-    }
+    // "https://google.com/": {
+    //     "time": "1222",
+    //     "title": "Google",
+    //     "description": "search what you want.",
+    //     "image": "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+    //     "url": "https://google.com"
+    // }
 }
 let a = document.getElementsByTagName("a");
 for (let i = 0; i < a.length; i++) {
@@ -18,9 +18,9 @@ for (let i = 0; i < a.length; i++) {
         a[i].style.color = "turquoise";
     })
 }
-document.getElementById("search").onclick = async () => {
+document.getElementById("search").onclick = () => {
     let a = document.getElementById("inp").value;
-    await send_data(a);
+    get_preview(a);
 };
 const send_data = async (url) => {
     let data = { "url": url };
@@ -55,9 +55,24 @@ const show_preview = async (data) => {
     let url = document.getElementById("url");
 
     // set property
-    title.innerText = obj["title"];
-    description.innerText = obj["description"];
-    image.src = obj["image"];
+    if (obj["title"] !== undefined) {
+        title.innerText = obj["title"];
+    } else {
+        title.innerText = "Title";
+    }
+
+    if (obj["description"] !== undefined) {
+        description.innerText = obj["description"];
+    } else {
+        description.innerText = "Description : not found";
+    }
+
+    if (obj["image"] !== undefined) {
+        image.src = obj["image"];
+    } else {
+        image.src = "./images/dummy.png";
+    }
+
     url.innerText = obj["url"];
 
     document.getElementById("link-preview").addEventListener("click", () => {

@@ -21,7 +21,7 @@ app.post("/api", async (req, res) => {
     console.log(url);
     if (url) {
         let doc = await scraper(url);
-        let data = get_meta(doc);
+        let data = get_meta(doc, url);
         console.log(data);
         res.json(data);
     } else {
