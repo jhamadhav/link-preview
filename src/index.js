@@ -28,7 +28,7 @@ app.post("/api", async (req, res) => {
     // console.log(url);
 
     // check if url is correct
-    if (url) {
+    if (validURL(url)) {
 
         // if url us correct find it in the database
         let data = await findByUrl(url);
@@ -47,7 +47,12 @@ app.post("/api", async (req, res) => {
         }
     } else {
         //if url is incorrect then send internal error
-        res.json({ response: "Internal Error" });
+        // if url entered is wrong then a follow back json
+        let err_res = {
+            title: "Error : 404",
+            description: "URL is incorrect"
+        }
+        res.json(err_res);
     }
 
 });
@@ -55,3 +60,14 @@ app.post("/api", async (req, res) => {
 // listen for requests :)
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
+
+// function to check url
+const validURL = (str) => {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(str);
+}

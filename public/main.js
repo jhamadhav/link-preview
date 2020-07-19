@@ -1,13 +1,7 @@
 // global link preview list
-let links = {
-    // "https://google.com/": {
-    //     "time": "1222",
-    //     "title": "Google",
-    //     "description": "search what you want.",
-    //     "image": "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-    //     "url": "https://google.com"
-    // }
-}
+let links = {};
+
+// load all the anchor tags and assign them a hover event
 let a = document.getElementsByTagName("a");
 for (let i = 0; i < a.length; i++) {
     a[i].addEventListener("mouseover", () => {
@@ -18,10 +12,14 @@ for (let i = 0; i < a.length; i++) {
         a[i].style.color = "turquoise";
     })
 }
+
+// for custom button
 document.getElementById("search").onclick = () => {
     let a = document.getElementById("inp").value;
     get_preview(a);
 };
+
+// send data to the server
 const send_data = async (url) => {
     let data = { "url": url };
     let options = {
@@ -37,7 +35,13 @@ const send_data = async (url) => {
     return d;
 };
 
+// get preview function
 const get_preview = async (url) => {
+    // show loading while content loads
+    let title = document.getElementById("title");
+    title.innerText = "Loading...";
+
+    // if it already exists then don't send request to the server
     if (!links.hasOwnProperty(url)) {
         let data = await send_data(url);
         // console.log(data);
@@ -46,6 +50,7 @@ const get_preview = async (url) => {
     show_preview(links[url]);
 }
 
+// make changes to the main tab
 const show_preview = async (data) => {
     let obj = await data;
     console.log(obj);
