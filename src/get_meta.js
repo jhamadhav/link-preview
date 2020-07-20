@@ -10,8 +10,14 @@ const meta_info = (doc, url0) => {
 
     let description = $('meta[property="og:description"]').attr('content') || undefined;
 
-    let image = $('meta[property="og:image"]').attr('content') || $('link[re="icon"]').attr('href') || undefined;
-
+    let image = $('meta[property="og:image"]').attr('content') || $('link[re="icon"]').attr('href') || $('img').first().attr('src') || undefined;
+    // some conditions for the image url
+    if (image != undefined) {
+        let res = new RegExp("^(https://){1}");
+        if (!res.test(image)) {
+            image = url0 + image;
+        }
+    }
     let url = $('meta[property="og:url"]').attr('content') || url0;
 
     // constructing the actual json to send

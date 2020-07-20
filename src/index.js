@@ -17,7 +17,7 @@ app.use("/", bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.use(express.json());
 
-// to show our wepage
+// to show our webpage
 app.get("/", (request, response) => {
     response.sendFile(__dirname + "/public/index.html");
 });

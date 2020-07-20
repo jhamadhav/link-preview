@@ -9,7 +9,7 @@
     <meta name="description" content="Get link preview on hover !" />
     <meta property="og:image" content="/images/dummy.png">
     <meta property="og:url" content="https://link.jhamadhav.com/">
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./styles/main.min.css">
     <title>Link preview | web-scraper</title>
 
     <script src="./main.js" defer></script>
@@ -17,7 +17,7 @@
 
 <body>
     <h1>Link Previewer</h1>
-    <main id="link-preview">
+    <main id="link-preview" class="container">
         <div class="data">
             <div id="title">Title comes here</div>
             <hr>
@@ -31,8 +31,8 @@
         </div>
     </main>
     <section>
-        <input type="url" id="inp" placeholder="Preview Link">
-        <button id="search">Search</button>
+        <input type="text" id="inp" placeholder="Preview Link">
+        <button id="search"></button>
     </section>
     <ul>
         <li><a href="https://stackoverflow.com/">Stackoverflow link</a></li>
