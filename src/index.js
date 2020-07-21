@@ -10,7 +10,7 @@ const get_meta = require("./get_meta");
 const { create_new, findByUrl } = require("./myDB");
 
 // port infos
-const port = process.envPORT || 3000;
+const port = process.env.PORT || 3000;
 
 // parser
 app.use("/", bodyParser.urlencoded({ extended: false }));
