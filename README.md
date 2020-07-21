@@ -6,7 +6,4 @@ this is a version of it made to experiment, learn and improve the web experience
 
 ## Additional info
 
-This is hosted on [Glitch](https://glitch.com/). </br>
-For Demo : [link.jhamadhav.com](https://link.jhamadhav.com)
-
-Now hosted on heroku
+Hosted on heroku
