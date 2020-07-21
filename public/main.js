@@ -97,5 +97,12 @@ const show_preview = async (data) => {
     });
 }
 
+// function to send mail
+const send_mail = () => {
+    let msg = document.getElementById("mail_msg").value;
+    window.open(`mailto:contact@jhamadhav.com?subject=${msg}`);
+
+}
+
 
 
