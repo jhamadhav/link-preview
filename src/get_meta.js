@@ -8,7 +8,7 @@ const meta_info = (doc, url0) => {
     // values for the meta tags
     let title = $('meta[property="og:title"]').attr('content') || $('title').text() || undefined;
 
-    let description = $('meta[property="og:description"]').attr('content') || undefined;
+    let description = $('meta[property="og:description"]').attr('content') || $('p').first().text() || undefined;
 
     let image = $('meta[property="og:image"]').attr('content') || $('link[re="icon"]').attr('href') || $('img').first().attr('src') || undefined;
     // some conditions for the image url
@@ -27,7 +27,7 @@ const meta_info = (doc, url0) => {
         "title": title,
         "description": description,
         "image": image,
-        "url": url
+        "url": url0
     };
     return data;
 }

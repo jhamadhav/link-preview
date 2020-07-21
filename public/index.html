@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:title" content="Link Preview">
     <meta name="description" content="Get link preview on hover !" />
-    <meta property="og:image" content="/images/dummy.png">
+    <meta property="og:image" content="/images/dummy.svg">
     <meta property="og:url" content="https://link.jhamadhav.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Rosario&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/main.min.css">
     <title>Link preview | web-scraper</title>
 
@@ -16,7 +18,10 @@
 </head>
 
 <body>
-    <h1>Link Previewer</h1>
+    <h1 id="main-h"><a href="https://github.com/jhamadhav/link-preview">Link Preview</a></h1>
+    <div class="bg">
+        <img src="./images/notify.svg" alt="">
+    </div>
     <main id="link-preview" class="container">
         <div class="data">
             <div id="title">Title comes here</div>
@@ -27,13 +32,120 @@
             <div id="url">Here comes the actual url</div>
         </div>
         <div class="img">
-            <img src="./images/dummy.png" alt="preview image" id="image">
+            <img src="./images/dummy.svg" alt="preview image" id="image">
         </div>
     </main>
     <section>
         <input type="text" id="inp" placeholder="Preview Link">
         <button id="search"></button>
     </section>
+
+    <div class="tab">
+        <div class="heading">What is it ?</div>
+        <p>It's called a <a href="https://github.com/jhamadhav/link-preview">link Preview</a>, what it intends to do is
+            show the user the content of the link
+            he/she is about
+            to click.The reviews feature solves the core problem of users needing to open multiple tabs to gain an
+            understanding of a word or concept within the context of the subject they are reading. <br> <br>
+            With link previews,
+            whenever a reader hovers over a link to another page, a short summary of the subject and an image (if
+            available) is displayed. The user can then decide whether they wish to visit that page more thoroughly
+            before continuing. </p>
+    </div>
+
+    <div class="tab">
+        <div class="heading">How to use it ?</div>
+        <p>To test it out, Paste any link that you wish to see in the <a href="#main-h">search bar</a> above
+            and <i>Voila</i> you
+            have your preview.
+            <br><br>
+            Want to have it as a extension in your browser, follow along : <br>
+        <ol>
+            <li>Visit the <a href="https://addons.mozilla.org/en-US/firefox/">Firefox addon</a> page or <a
+                    href="https://chrome.google.com/webstore/category/extensions">Chrome store</a> for chrome users.
+            </li>
+            <li>Search for link preview in the search bar.</li>
+            <li>Found it ! Click on add it to your browser, give all the permission</li>
+            <li>And you have your own link previewer ready !</li>
+        </ol>
+        </p>
+    </div>
+
+    <div class="tab">
+        <div class="heading">So how does it work again ?</div>
+        <p>We talked above about what it does lets know about how it works, i.e. the coding behind it. <br> Let's dive
+            into it : <br>
+
+            <!-- step 1 -->
+        <div class="step">Step 1 :</div>
+        <span>First comes the HTML part of the previewer, it includes a title, description, url and a image. All this is
+            contained in a external div. <br> <br> The code is as follows : <br>
+            <script src="https://gist.github.com/jhamadhav/1662497adf3fe6af9aab887e3d8d3e9a.js"></script>
+        </span>
+
+        <!-- step 2 -->
+        <div class="step">Step 2 :</div>
+        <span>Next is the styling of the viewer.. lets skip that for now as it's all just basics <br> <br> The code is
+            as follows : <br>
+            <a href="https://gist.github.com/jhamadhav/52381bcc703a0c849b4fbe8b8af8e318">link-preview.scc</a>
+        </span>
+        </p>
+    </div>
+
+
+    <div class="tab">
+        <div class="heading">Client side code : </div>
+        <p>
+            <!-- step 3 -->
+        <div class="step">Step 3 :</div>
+        <span>Now lets come to the logic part, When the user hovers over a link i.e an anchor tag (mostly), an event
+            listener is added to the anchor tags that captures the url that it points to and sends it to another
+            function. <br> <br> The code
+            is
+            as follows :
+            <script src="https://gist.github.com/jhamadhav/8a32acd298a5d1a615691499dbbb9990.js"></script>
+        </span>
+
+        <!-- step 4 -->
+        <div class="step">Step 4 :</div>
+        <span>The data about the targeted link is fetched from a database, thus it is a async function i.e. it may take
+            some time for the data to come till then show loading text. <br>Once done check if the link has already been
+            fetched and stored in an array called <b>links</b>. If it exists then don't send a request to the database
+            else send a fetch request. <br> <br> The code
+            is
+            as follows :
+            <script src="https://gist.github.com/jhamadhav/fe7f492a0345ed2df76e9218ec02a1cc.js"></script>
+        </span>
+
+        <!-- step 5 -->
+        <div class="step">Step 5 :</div>
+        <span>Once the data has been fetched from the database or has been found in the local variable, fill the dom
+            elements that we created earlier with it <br> <br> The code
+            is
+            as follows :
+            <script src="https://gist.github.com/jhamadhav/b53f674df09c28f8b73054229d7cfdcc.js"></script>
+        </span>
+        </p>
+    </div>
+
+    <div class="tab">
+        <div class="heading">Server side code</div>
+        <p>
+            <!-- step 6 -->
+        <div class="step">Step 6 :</div>
+        <span>Once the url is received by the server, it checks if the url is actually a correct url and if it is it
+            queries the database for it and if it comes undefined then scrape the pointed url for the meta tags to look
+            for the data we need. <br> <br> The code
+            is
+            as follows :
+            <script src="https://gist.github.com/jhamadhav/99def696fd10c7435bcd87f631f951f0.js"></script>
+        </span> <br> <br>
+        The scraper code logic is not explained here as it has been explained very well by many other articles one such
+        is this one from the <a
+            href="https://medium.com/nuom-digital/an-introduction-to-web-scraping-with-node-js-and-cheeriojs-62755b556b3e">Medium</a>.
+        </p>
+    </div>
+
     <ul>
         <li><a href="https://stackoverflow.com/">Stackoverflow link</a></li>
         <li><a href="https://www.geeksforgeeks.org/">Geeks for geeks link</a></li>

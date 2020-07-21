@@ -6,11 +6,7 @@ let a = document.getElementsByTagName("a");
 for (let i = 0; i < a.length; i++) {
     a[i].addEventListener("mouseover", () => {
         get_preview(a[i].href);
-        a[i].style.color = "wheat";
     });
-    a[i].addEventListener("mouseout", () => {
-        a[i].style.color = "turquoise";
-    })
 }
 
 // for custom button
@@ -50,23 +46,31 @@ const get_preview = async (url) => {
 
     // if it already exists then don't send request to the server
     if (!links.hasOwnProperty(url)) {
+
         let data = await send_data(url);
         // console.log(data);
+
         links[url] = JSON.parse(data);
     }
+
+    // call function to make changes in the dom elements
     show_preview(links[url]);
 }
 
-// make changes to the main tab
+// make changes to the link preview tab
 const show_preview = async (data) => {
+
+    // wait for the data to come
     let obj = await data;
-    console.log(obj);
+    // console.log(obj);
+
+    // get the necessary elements
     let title = document.getElementById("title");
     let description = document.getElementById("description");
     let image = document.getElementById("image");
     let url = document.getElementById("url");
 
-    // set property
+    // set property only if the data we received is not undefined
     if (obj["title"] !== undefined) {
         title.innerText = obj["title"];
     } else {
@@ -82,11 +86,12 @@ const show_preview = async (data) => {
     if (obj["image"] !== undefined) {
         image.src = obj["image"];
     } else {
-        image.src = "./images/dummy.png";
+        image.src = "./images/dummy.svg";
     }
 
     url.innerText = obj["url"];
 
+    // add event listener to the link-preview element so it takes to the url that it shows
     document.getElementById("link-preview").addEventListener("click", () => {
         window.location = obj.url;
     });
