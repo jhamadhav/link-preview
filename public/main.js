@@ -15,6 +15,15 @@ document.getElementById("search").onclick = () => {
     get_preview(a);
 };
 
+document.addEventListener("keypress", (e) => {
+    // console.log(e);
+    if (e.keyCode == 13) {
+        let a = document.getElementById("inp").value;
+        get_preview(a);
+    }
+
+})
+
 // send data to the server
 const send_data = async (url) => {
     let data = { "url": url };
