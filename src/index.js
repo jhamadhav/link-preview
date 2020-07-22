@@ -40,17 +40,30 @@ app.post("/api", async (req, res) => {
         } else {
             // else scrape the web and feed it into the database
             let doc = await scraper(url);
-            let data = get_meta(doc, url);
-            // console.log(data);
-            create_new(data);
-            res.json(data);
+
+            // if scrapping doesn't fail
+            if (doc !== null) {
+                let data = get_meta(doc, url);
+                // console.log(data);
+                create_new(data);
+                res.json(data);
+            } else {
+                let err_res = {
+                    title: "Error : 404",
+                    description: "Couldn't find anything...!",
+                    url: undefined
+                }
+                res.json(err_res);
+            }
+
         }
     } else {
         //if url is incorrect then send internal error
         // if url entered is wrong then a follow back json
         let err_res = {
             title: "Error : 404",
-            description: "URL is incorrect | Try adding https protocol"
+            description: "URL is incorrect | Try adding https protocol",
+            url: undefined
         }
         res.json(err_res);
     }

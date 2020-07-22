@@ -34,7 +34,7 @@ nav {
 
     #nav-h {
         display: block;
-        font-size: 2rem;
+        font-size: 1.8rem;
         text-transform: uppercase;
         letter-spacing: 3px;
         color: $link-red;
@@ -84,7 +84,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 510px;
+    width: 480px;
 
     @include mobile {
         flex-direction: column;

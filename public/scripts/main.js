@@ -1,28 +1,34 @@
 // global link preview list
-let links = {};
+let links = JSON.parse(localStorage.getItem("link_data")) || {};
 
-// load all the anchor tags and assign them a hover event
-let a = document.getElementsByTagName("a");
-for (let i = 0; i < a.length; i++) {
-    a[i].addEventListener("mouseover", () => {
-        get_preview(a[i].href);
+window.onload = () => {
+    // print the data stored
+    // console.log(links)
+
+    // load all the anchor tags and assign them a hover event
+    let a = document.getElementsByTagName("a");
+    for (let i = 0; i < a.length; i++) {
+        a[i].addEventListener("mouseover", () => {
+            get_preview(a[i].href);
+        });
+    }
+
+    // for custom button
+    document.getElementById("search").onclick = () => {
+        let a = document.getElementById("inp").value;
+        get_preview(a);
+    };
+
+    document.addEventListener("keypress", (e) => {
+        // console.log(e);
+        if (e.keyCode == 13) {
+            let a = document.getElementById("inp").value;
+            get_preview(a);
+        }
+
     });
 }
 
-// for custom button
-document.getElementById("search").onclick = () => {
-    let a = document.getElementById("inp").value;
-    get_preview(a);
-};
-
-document.addEventListener("keypress", (e) => {
-    // console.log(e);
-    if (e.keyCode == 13) {
-        let a = document.getElementById("inp").value;
-        get_preview(a);
-    }
-
-})
 
 // send data to the server
 const send_data = async (url) => {
@@ -54,13 +60,27 @@ const get_preview = async (url) => {
     url2.innerText = "Just a sec...!";
 
     // if it already exists then don't send request to the server
+    let t = new Date().getTime();
     if (!links.hasOwnProperty(url)) {
 
         let data = await send_data(url);
         // console.log(data);
 
         links[url] = JSON.parse(data);
+    } else if (links[url].time < t) {
+
+        // if time has expired then delete the item
+        delete links[url];
+
+        let data = await send_data(url);
+        // console.log(data);
+
+        links[url] = JSON.parse(data);
     }
+
+    // irrespective of the action save the new set of array into the local storage
+    // Store
+    localStorage.setItem("link_data", JSON.stringify(links));
 
     // call function to make changes in the dom elements
     show_preview(links[url]);
@@ -97,20 +117,26 @@ const show_preview = async (data) => {
     } else {
         image.src = "./images/dummy.svg";
     }
-
     url.innerText = obj["url"];
 
     // add event listener to the link-preview element so it takes to the url that it shows
-    document.getElementById("link-preview").addEventListener("click", () => {
-        window.location = obj.url;
-    });
+    if (obj["url"] !== undefined) {
+        document.getElementById("link-preview").addEventListener("click", () => {
+            window.location = obj.url;
+        });
+    } else {
+        document.getElementById("link-preview").addEventListener("click", () => {
+            window.location = window.location;
+        });
+    }
+
+
 }
 
 // function to send mail
 const send_mail = () => {
     let msg = document.getElementById("mail_msg").value;
     window.open(`mailto:contact@jhamadhav.com?subject=${msg}`);
-
 }
 
 

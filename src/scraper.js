@@ -28,6 +28,7 @@ const scrap = (url) => {
             } else {
                 console.log(status);
                 console.log(res.headers);
+                resolve(null);
             }
 
         });
