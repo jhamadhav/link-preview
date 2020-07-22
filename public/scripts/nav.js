@@ -2,10 +2,6 @@
 var prev = window.pageYOffset;
 var now;
 
-// to open and close the menu bar when swiped right and left respectively
-document.addEventListener('swiped-left', menuOpen);
-document.addEventListener('swiped-right', menuOpen);
-
 //event listener when scrolled
 window.onscroll = function () {
     now = window.pageYOffset;
