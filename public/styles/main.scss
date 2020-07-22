@@ -6,12 +6,16 @@ fonts :
 
     font-family: 'Rosario', sans-serif;
 */
-@import "./variable.scss", "./nav.scss", "./link.scss";
+@import "./_variable.scss", "./_nav.scss", "./_link.scss";
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -116,6 +120,7 @@ h1 {
     font-size: 2.5rem;
     text-decoration: none;
     color: $bg-color;
+    opacity: 0;
 
     a {
         text-decoration: none;
