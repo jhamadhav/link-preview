@@ -1,0 +1,158 @@
+@import "./variable.scss";
+
+@mixin mobile {
+    @media (max-width : #{$mobile}) {
+        @content;
+    }
+}
+
+@mixin small {
+    @media (max-width : 300px) {
+        @content;
+    }
+}
+
+nav {
+    height: 70px;
+    width: 100%;
+    background-color: $nav-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    transition-duration: 300ms;
+    z-index: 50;
+
+    @include mobile {
+        justify-content: flex-start;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: $bg2;
+    }
+
+
+    #nav-h {
+        display: block;
+        font-size: 2.12rem;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: $link-red;
+        margin-left: 20px;
+        z-index: 50;
+        background-color: inherit;
+
+        @include mobile {
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        @include small {
+            font-size: 1.4rem;
+        }
+    }
+}
+
+.burger {
+    background-color: inherit;
+    display: none;
+    height: 40px;
+    width: 60px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition-duration: 300ms;
+    margin-left: 10px;
+    margin-right: 10px;
+    z-index: 50;
+
+    @include mobile {
+        display: block;
+    }
+
+    span {
+        position: relative;
+        display: block;
+        height: 4px;
+        width: 40px;
+        margin: 6px;
+        background-color: $text-color1;
+        transition-duration: 300ms;
+    }
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 510px;
+
+    @include mobile {
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        position: absolute;
+        background-color: $nav-color;
+        max-width: 200px;
+        height: 80vh;
+        max-height: 700px;
+        top: 70px;
+        transition: 400ms;
+        transform-origin: 0 0;
+        transform: scale(0);
+        border-top: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    li {
+        list-style: none;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: medium;
+        border-bottom: 3px solid transparent;
+        padding: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        font-family: "Raleway", sans-serif;
+
+
+        @include mobile {
+            padding: 20px;
+            width: 100%;
+        }
+    }
+
+}
+
+
+
+/*  added class for animation purpose  */
+
+.open {
+    transform: scale(1);
+}
+
+.menuAnimate {
+    span:nth-child(1) {
+        transform-origin: 20px;
+        transform: translateY(10px) rotate(-45deg);
+    }
+
+    span:nth-child(2) {
+        transform-origin: 20px;
+        transform: rotate(45deg);
+    }
+
+    span:nth-child(3) {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+}

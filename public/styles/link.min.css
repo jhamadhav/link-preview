@@ -26,6 +26,15 @@
   color: black;
 }
 
+@media (max-width: 300px) {
+  #link-preview {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+}
+
 #link-preview #link-preview:active {
   -webkit-transform: scale(0.96);
           transform: scale(0.96);
@@ -62,24 +71,16 @@
   font-weight: bolder;
   font-size: 1.6rem;
   margin: 4px;
-  height: 32px;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+  word-wrap: break-word;
 }
 
 #link-preview #description {
   font-weight: bold;
   font-size: .93rem;
   margin: 4px;
-  height: 45px;
   display: block;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   opacity: .8;
+  word-wrap: break-word;
 }
 
 #link-preview #description::-webkit-scrollbar {
@@ -90,7 +91,6 @@
   color: gray;
   font-size: medium;
   font-family: 'Roboto', sans-serif;
-  height: 18px;
   text-decoration: underline;
   overflow-y: scroll;
   -ms-overflow-style: none;
@@ -124,14 +124,14 @@ section {
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   padding: 12px 20px;
   border-radius: 24px;
-  -webkit-animation: shrink 1800ms ease-out;
-          animation: shrink 1800ms ease-out;
+  -webkit-animation: shrink 500ms ease-out;
+          animation: shrink 500ms ease-out;
 }
 
 section input {
   background-color: transparent;
   color: white;
-  width: 100%;
+  width: 75%;
   border: none;
   outline: none;
   font-size: medium;
@@ -149,31 +149,20 @@ section input:invalid {
           box-shadow: none;
 }
 
-section button {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid white;
-  padding: 10px;
-  background-color: transparent;
+section svg {
+  width: 28px;
+  display: inline-block;
+  height: 28px;
+  fill: white;
   outline: none;
-  margin-bottom: 2px;
   cursor: pointer;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  margin-top: 4px;
+  padding: 0;
 }
 
-section button:before {
-  content: "";
-  display: inline;
-  position: absolute;
-  width: 2px;
-  height: 10px;
-  color: white;
-  background: white;
-  -webkit-transform: rotate(-45deg) translate(100%, 110%);
-          transform: rotate(-45deg) translate(100%, 110%);
-}
-
-section button:active {
+section svg:active {
   -webkit-transform: scale(0.95);
           transform: scale(0.95);
 }

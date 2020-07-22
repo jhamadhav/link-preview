@@ -8,16 +8,39 @@
     <meta property="og:title" content="Link Preview">
     <meta name="description" content="Get link preview on hover !" />
     <meta property="og:image" content="/images/dummy.svg">
-    <meta property="og:url" content="https://link.jhamadhav.com/">
+    <meta property="og:url" content="https://link-viewer.heroku.com/">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Rosario&display=swap"
         rel="stylesheet">
+    <!-- style -->
     <link rel="stylesheet" href="./styles/main.min.css">
     <title>Link preview | web-scraper</title>
-
+    <!-- scripts -->
+    <script src="./nav.js"></script>
     <script src="./main.js" defer></script>
 </head>
 
 <body>
+    <nav>
+        <div class="burger" onclick="menuOpen()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div id="nav-h">Link Preview</div>
+
+        <ul class="nav-links">
+            <a href="#main-h">
+                <li onclick="menuOpen()"> Search</li>
+            </a>
+            <a href="#code">
+                <li onclick="menuOpen()">code</li>
+            </a>
+            <a href="#extension">
+                <li onclick="menuOpen()">extension</li>
+            </a>
+        </ul>
+    </nav>
+
     <h1 id="main-h"><a href="https://github.com/jhamadhav/link-preview">Link Preview</a></h1>
     <div class="bg">
         <img src="./images/notify.svg" alt="">
@@ -37,7 +60,58 @@
     </main>
     <section>
         <input type="text" id="inp" placeholder="Preview Link">
-        <button id="search"></button>
+        <div id="search">
+            <?xml version="1.0" encoding="iso-8859-1"?>
+            <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                <g>
+                    <g>
+                        <path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474
+                        c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323
+                        c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848
+                        S326.847,409.323,225.474,409.323z" />
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <path
+                            d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328
+                        c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                    </g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+            </svg>
+        </div>
     </section>
 
     <div class="tab">
@@ -53,7 +127,7 @@
             before continuing. </p>
     </div>
 
-    <div class="tab">
+    <div class="tab" id="extension">
         <div class="heading">How to use it ?</div>
         <p>To test it out, Paste any link that you wish to see in the <a href="#main-h">search bar</a> above
             and <i>Voila</i> you
@@ -71,7 +145,7 @@
         </p>
     </div>
 
-    <div class="tab">
+    <div class="tab" id="code">
         <div class="heading">So how does it work again ?</div>
         <p>We talked above about what it does lets know about how it works, i.e. the coding behind it. <br> Let's dive
             into it : <br>
@@ -150,7 +224,7 @@
         <div class="heading">Few words :</div>
         <p>
             Thanks for reading till the end, I hope you enjoyed the explanation. Check my social handles and feel free
-            to mail me if you have any quires.
+            to mail me if you have any queries.
             <br>
             Keep Coding! keep Innovating!
         </p>

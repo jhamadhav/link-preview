@@ -6,12 +6,7 @@ fonts :
 
     font-family: 'Rosario', sans-serif;
 */
-// variables
-$bg-color:#2c3e50;
-$bg2:#FF4136;
-$link-red:#EE352E;
-
-@import "./link.scss";
+@import "./variable.scss", "./nav.scss", "./link.scss";
 
 * {
     margin: 0;
@@ -19,18 +14,12 @@ $link-red:#EE352E;
     box-sizing: border-box;
 }
 
-// 
-
-
 body {
-
     color: white;
     font-family: 'Poppins', sans-serif;
     width: 100%;
     height: 100%;
     background-attachment: fixed;
-
-
 }
 
 .bg {
@@ -65,13 +54,7 @@ body {
     }
 }
 
-h1 {
-    width: 100%;
-    text-align: center;
-    margin: 20px auto 20px auto;
-    letter-spacing: 1px;
-    font-size: 2.5rem;
-}
+
 
 .tab {
     width: 90%;
@@ -80,14 +63,14 @@ h1 {
     border-radius: 8px;
     margin: auto;
     color: black;
-    padding: 28px;
+    padding: 1.2rem;
     margin-top: 40px;
     animation: popup 500ms ease-out;
 
     .heading,
     .step {
         font-family: 'Poppins', sans-serif;
-        font-size: x-large;
+        font-size: 1.8rem;
         color: $bg-color;
         font-weight: bold;
     }
@@ -112,18 +95,34 @@ h1 {
     }
 
     ol {
-        padding: 4px 30px 5px 30px;
+        padding: 4px 1.2rem 5px 1.2rem;
     }
 
     li {
         margin: 8px;
     }
+
+    a {
+        text-decoration: none;
+        color: $link-red;
+    }
 }
 
-a {
+h1 {
+    width: 100%;
+    text-align: center;
+    margin: 20px auto 20px auto;
+    letter-spacing: 1px;
+    font-size: 2.5rem;
     text-decoration: none;
-    color: $link-red;
+    color: $bg-color;
+
+    a {
+        text-decoration: none;
+        color: $link-red;
+    }
 }
+
 
 
 @keyframes popup {
@@ -142,7 +141,7 @@ a {
 footer {
     width: 100%;
     position: absolute;
-    background: #171e29;
+    background: $nav-color;
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
@@ -175,13 +174,14 @@ footer {
         input {
             background-color: transparent;
             color: #262626;
-            width: 90%;
+            width: 70%;
             border: none;
             outline: none;
             font-size: medium;
             font-family: 'Poppins',
                 sans-serif;
             padding: 6px;
+            padding-right: 15px;
 
             &:required {
                 border: none;
@@ -195,6 +195,10 @@ footer {
         }
 
         button {
+            width: 25%;
+            min-width: 60px;
+            max-width: 80px;
+            display: inline-block;
             padding: 12px 16px;
             border-radius: 20px;
             outline: none;
@@ -223,7 +227,7 @@ footer {
 
         .copyright,
         .hosted {
-            font-size: x-small;
+            font-size: xx-small;
         }
     }
 
@@ -245,8 +249,8 @@ footer {
         transform: translateY(8px);
 
         svg {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             cursor: pointer;
             fill: white;
         }
