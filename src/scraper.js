@@ -2,6 +2,15 @@ const https = require("https");
 
 // actual scrape function
 const scrap = (url) => {
+
+    // add https if it is not undefined
+    if (url !== undefined) {
+        // regex to add https
+        let res = new RegExp("^(https://){1}");
+        if (!res.test(url)) {
+            url = "https://" + url;
+        }
+    }
     return new Promise((resolve, reject) => {
         // request function
         const req = https.request(url, (res) => {

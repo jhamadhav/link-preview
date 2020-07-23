@@ -135,7 +135,7 @@ const show_preview = async (data) => {
 
 // function to check url
 const validURL = (str) => {
-    var pattern = new RegExp('^(https:\\/\\/){1}' + // protocol
+    var pattern = new RegExp('^(https:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
