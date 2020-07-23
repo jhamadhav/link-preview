@@ -1,5 +1,6 @@
 // npm modules
 const express = require("express");
+const cors = require('cors')
 const bodyParser = require("body-parser");
 const app = express();
 
@@ -13,6 +14,7 @@ const { create_new, findByUrl } = require("./myDB");
 const port = process.env.PORT || 3000;
 
 // parser
+app.use(cors());
 app.use("/", bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.use(express.json());
