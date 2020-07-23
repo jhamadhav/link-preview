@@ -5,25 +5,26 @@ window.onload = () => {
     // print the data stored
     // console.log(links)
 
-    // load all the anchor tags and assign them a hover event
-    let a = document.getElementsByTagName("a");
-    for (let i = 0; i < a.length; i++) {
-        a[i].addEventListener("mouseover", () => {
-            get_preview(a[i].href);
-        });
-    }
+    // show link when hovered
+    document.addEventListener("mouseover", (e) => {
+        let url = e.target.parentNode.href || e.target.href;
+        // console.log(url);
+        if (validURL(url)) {
+            get_data(url);
+        }
+    });
 
     // for custom button
     document.getElementById("search").onclick = () => {
         let a = document.getElementById("inp").value;
-        get_preview(a);
+        get_data(a);
     };
 
     document.addEventListener("keypress", (e) => {
         // console.log(e);
         if (e.keyCode == 13) {
             let a = document.getElementById("inp").value;
-            get_preview(a);
+            get_data(a);
         }
 
     });
@@ -31,7 +32,7 @@ window.onload = () => {
 
 
 // send data to the server
-const send_data = async (url) => {
+const send_url = async (url) => {
     let data = { "url": url };
     let options = {
         method: "POST",
@@ -47,7 +48,7 @@ const send_data = async (url) => {
 };
 
 // get preview function
-const get_preview = async (url) => {
+const get_data = async (url) => {
 
     // show loading while content loads
     let title = document.getElementById("title");
@@ -63,7 +64,7 @@ const get_preview = async (url) => {
     let t = new Date().getTime();
     if (!links.hasOwnProperty(url)) {
 
-        let data = await send_data(url);
+        let data = await send_url(url);
         // console.log(data);
 
         links[url] = JSON.parse(data);
@@ -72,7 +73,7 @@ const get_preview = async (url) => {
         // if time has expired then delete the item
         delete links[url];
 
-        let data = await send_data(url);
+        let data = await send_url(url);
         // console.log(data);
 
         links[url] = JSON.parse(data);
@@ -131,6 +132,17 @@ const show_preview = async (data) => {
     }
 
 
+}
+
+// function to check url
+const validURL = (str) => {
+    var pattern = new RegExp('^(https:\\/\\/){1}' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(str);
 }
 
 // function to send mail
