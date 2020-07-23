@@ -30,7 +30,6 @@ window.onload = () => {
     });
 }
 
-
 // send data to the server
 const send_url = async (url) => {
     let data = { "url": url };
