@@ -6,7 +6,7 @@ const scrap = (url) => {
     // add https if it is not undefined
     if (url !== undefined) {
         // regex to add https
-        let res = new RegExp("^(https://){1}");
+        let res = new RegExp("^(https://|http://){1}");
         if (!res.test(url)) {
             url = "https://" + url;
         }
