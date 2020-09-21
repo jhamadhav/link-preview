@@ -1,9 +1,15 @@
 # Link Preview | web-scrapper
 
 Scrapping through the endless sea of web, it provides link previews to all. </br>
-The Idea of link preview is not something new and has been existed for a while now, 
+The Idea of link preview is not something new and it has been existed for a while now, 
 this is a version of it made to experiment, learn and improve the web experience.
 
-## Additional info
+<br>
 
-Hosted on heroku
+# Additional info
+
+**Hosted on heroku :** [Check the website](https://link-viewer.herokuapp.com/)
+
+**Get the firefox extension :** [addon link](https://addons.mozilla.org/en-US/firefox/addon/web-link-preview/)
+
+**Link for extension code :** [Github repo](https://github.com/jhamadhav/extention-link-preview) 
