@@ -122,7 +122,7 @@ const show_preview = async (data) => {
     // add event listener to the link-preview element so it takes to the url that it shows
     if (obj["url"] !== undefined) {
         document.getElementById("link-preview").addEventListener("click", () => {
-            window.open(obj.url)
+            window.location = obj.url;
         });
     } else {
         document.getElementById("link-preview").addEventListener("click", () => {
