@@ -5,6 +5,7 @@ const { getTitle, getDescription, getImage } = require("./getData");
 
 // main function
 const scrap = async (url) => {
+    let urlInit = url;
     try {
         // add https if it is not undefined
         if (url !== undefined) {
@@ -27,7 +28,7 @@ const scrap = async (url) => {
             "title": await getTitle(page),
             "description": await getDescription(page),
             "image": await getImage(page, url),
-            "url": url
+            "url": urlInit
         };
         console.log(data);
 
