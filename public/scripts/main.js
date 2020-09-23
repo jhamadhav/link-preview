@@ -73,7 +73,7 @@ const get_data = async (url) => {
         delete links[url];
 
         let data = await send_url(url);
-        // console.log(data);
+        console.log(data);
 
         links[url] = await JSON.parse(data);
     }

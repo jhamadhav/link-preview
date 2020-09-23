@@ -29,12 +29,14 @@ var Link = mongoose.model("Link", previewSchema);
 // create a new entry
 const create_new = async (data) => {
     try {
-        let l = new Link(data);
+        if (data) {
+            let l = new Link(data);
 
-        await l.save((err, data) => {
-            if (err) return console.error(err);
-            console.log("Successfully added !");
-        });
+            await l.save((err, data) => {
+                if (err) return console.error(err);
+                console.log("Successfully added !");
+            });
+        }
     } catch (err) {
         console.log(err);
     }

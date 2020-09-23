@@ -39,9 +39,10 @@ app.post("/api", async (req, res) => {
         } else {
             // else scrape the web and feed it into the database
             let scrapData = await scraper(url);
-            create_new(scrapData);
+
             // if scrapping doesn't fail
             if (scrapData !== null) {
+                create_new(scrapData);
                 res.json(scrapData);
             } else {
                 let err_res = {
