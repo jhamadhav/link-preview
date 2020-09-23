@@ -18,7 +18,7 @@ const scrap = async (url) => {
         const browser = await puppeteer.launch();
         const [page] = await browser.pages();
 
-        await page.goto(`${url}`, { waitUntil: 'networkidle0' });
+        await page.goto(`${url}`, { waitUntil: 'networkidle0', timeout: 0 });
 
         // constructing the actual json to send
         let msec_in_7days = 1000 * 60 * 60 * 24 * 7;
