@@ -6,7 +6,6 @@ const app = express();
 
 // self made modules
 const scraper = require("./scraper");
-const get_meta = require("./get_meta");
 const { create_new, findByUrl } = require("./myDB");
 
 // port infos

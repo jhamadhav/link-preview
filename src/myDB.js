@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const scraper = require("./scraper");
-const get_meta = require("./get_meta");
 const dotenv = require('dotenv').config({ path: __dirname + "/../.env" });
 
 
@@ -57,8 +56,7 @@ const findByUrl = (url) => {
                     // if it has expired then update it
                     if (urlFound[0].time < Date.now()) {
                         let filter = { "url": url };
-                        let doc = await scraper(url);
-                        let data = get_meta(doc, url);
+                        let data = await scraper(url);
                         find_and_update(filter, data);
                     }
                 } else {
