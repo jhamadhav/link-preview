@@ -75,7 +75,7 @@ const get_data = async (url) => {
         let data = await send_url(url);
         // console.log(data);
 
-        links[url] = JSON.parse(data);
+        links[url] = await JSON.parse(data);
     }
 
     // irrespective of the action save the new set of array into the local storage
