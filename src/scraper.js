@@ -32,8 +32,12 @@ const scrap = (url) => {
 
             } else if (status >= 300 && status <= 399) {
                 let moved_url = res.headers.location;
-                console.log(moved_url);
-                resolve(scrap(moved_url));
+                if (moved_url != "/error") {
+                    resolve(scrap(moved_url));
+                } else {
+                    resolve(null);
+                }
+                console.log(`url moved to ${moved_url}`);
             } else {
                 console.log(status);
                 console.log(res.headers);
@@ -44,6 +48,7 @@ const scrap = (url) => {
 
         req.on('error', (e) => {
             console.error(e);
+            console.log("error occurred!");
             reject(e);
         });
         req.end();

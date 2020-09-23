@@ -7,7 +7,7 @@ const meta_info = (doc, url0) => {
     $ = cheerio.load(doc);
 
     // values for the meta tags
-    let title = $('meta[property="og:title"]').attr('content') || $('title').text() || undefined;
+    let title = $('meta[property="og:title"]').attr('content') || $('title').text() || "undefined";
 
     // limiting the length 
     if (title.length > 70) {
@@ -16,7 +16,7 @@ const meta_info = (doc, url0) => {
     title = title.trim();
 
 
-    let description = $('meta[property="og:description"]').attr('content') || get_from("p") || get_from("div") || undefined;
+    let description = $('meta[property="og:description"]').attr('content') || get_from("p") || get_from("div") || "undefined";
 
     // limiting the length 
     if (description.length > 200) {
