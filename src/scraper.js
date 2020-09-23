@@ -1,59 +1,46 @@
-const https = require("https");
+const puppeteer = require('puppeteer');
+// custom 
+const { getTitle, getDescription, getImage } = require("./getData");
 
-// actual scrape function
-const scrap = (url) => {
 
-    // add https if it is not undefined
-    if (url !== undefined) {
-        // regex to add https
-        let res = new RegExp("^(https://|http://){1}");
-        if (!res.test(url)) {
-            url = "https://" + url;
-        }
-    }
-    return new Promise((resolve, reject) => {
-        // request function
-        const req = https.request(url, (res) => {
-
-            // get status code
-            let status = res.statusCode;
-            // console.log('statusCode:', status);
-
-            // if status is 200 i.e everything is fine
-            if (status >= 200 && status <= 299) {
-
-                data = "";
-                res.on("data", chunk => {
-                    data += chunk;
-                })
-                res.on("end", () => {
-                    resolve(data);
-                })
-
-            } else if (status >= 300 && status <= 399) {
-                let moved_url = res.headers.location;
-                if (moved_url != "/error") {
-                    resolve(scrap(moved_url));
-                } else {
-                    resolve(null);
-                }
-                console.log(`url moved to ${moved_url}`);
-            } else {
-                console.log(status);
-                console.log(res.headers);
-                resolve(null);
+// main function
+const scrap = async (url) => {
+    try {
+        // add https if it is not undefined
+        if (url !== undefined) {
+            // regex to add https
+            let res = new RegExp("^(https://|http://){1}");
+            if (!res.test(url)) {
+                url = "https://" + url;
             }
+        }
 
-        });
+        const browser = await puppeteer.launch();
+        const [page] = await browser.pages();
 
-        req.on('error', (e) => {
-            console.error(e);
-            console.log("error occurred!");
-            reject(e);
-        });
-        req.end();
-    })
+        await page.goto(`${url}`, { waitUntil: 'networkidle0' });
 
+        // constructing the actual json to send
+        let msec_in_7days = 1000 * 60 * 60 * 24 * 7;
+        let data = {
+            "time": Date.now() + msec_in_7days,
+            "title": await getTitle(page),
+            "description": await getDescription(page),
+            "image": await getImage(page, url),
+            "url": url
+        };
+        console.log(data);
+
+        await browser.close();
+
+        // console.log(data);
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 module.exports = scrap;
+
+
+

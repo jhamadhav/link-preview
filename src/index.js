@@ -39,14 +39,11 @@ app.post("/api", async (req, res) => {
             res.json(data);
         } else {
             // else scrape the web and feed it into the database
-            let doc = await scraper(url);
-
+            let scrapData = await scraper(url);
+            create_new(scrapData);
             // if scrapping doesn't fail
-            if (doc !== null) {
-                let data = get_meta(doc, url);
-                // console.log(data);
-                create_new(data);
-                res.json(data);
+            if (scrapData !== null) {
+                res.json(scrapData);
             } else {
                 let err_res = {
                     title: "Error : 404",
