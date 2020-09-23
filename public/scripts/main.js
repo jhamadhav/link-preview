@@ -66,7 +66,7 @@ const get_data = async (url) => {
         let data = await send_url(url);
         // console.log(data);
 
-        links[url] = JSON.parse(data);
+        links[url] = JSON.parse(await data);
     } else if (links[url].time < t) {
 
         // if time has expired then delete the item
