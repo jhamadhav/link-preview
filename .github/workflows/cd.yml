@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,4 +14,4 @@ jobs:
       - name: Deploy to Heroku
         run: |
           git fetch --unshallow
-          git push heroku main -f
+          git push heroku master -f
