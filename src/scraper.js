@@ -16,7 +16,7 @@ const scrap = async (url) => {
             }
         }
 
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
         const [page] = await browser.pages();
 
         await page.goto(`${url}`, { waitUntil: 'networkidle0', timeout: 0 });
