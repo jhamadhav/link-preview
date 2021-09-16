@@ -24,7 +24,7 @@ const scrap = async (url) => {
                 "--single-process",
                 "--no-zygote"
             ],
-            executablePath: 'node_modules/puppeteer/.local-chromium/win64-800071/chrome-win/chrome.exe'
+            executablePath: './node_modules/puppeteer/.local-chromium/win64-800071/chrome-win/chrome.exe'
         };
         const browser = await puppeteer.launch(chromeOptions);
         const [page] = await browser.pages();
