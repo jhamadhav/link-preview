@@ -15,8 +15,17 @@ const scrap = async (url) => {
                 url = "https://" + url;
             }
         }
-
-        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+        const chromeOptions = {
+            headless: true,
+            defaultViewport: null,
+            args: [
+                "--incognito",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote"
+            ],
+        };
+        const browser = await puppeteer.launch(chromeOptions);
         const [page] = await browser.pages();
 
         await page.goto(`${url}`, { waitUntil: 'networkidle0', timeout: 0 });
