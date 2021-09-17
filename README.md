@@ -8,7 +8,7 @@ this is a version of it made to experiment, learn and improve the web experience
 
 # Additional info
 
-**Hosted on heroku :** [Check the website](https://link-viewer.herokuapp.com/)
+**Hosted on Glitch :** [Check the website](https://preview-link.glitch.me)
 
 **Get the firefox extension :** [addon link](https://addons.mozilla.org/en-US/firefox/addon/web-link-preview/)
 
