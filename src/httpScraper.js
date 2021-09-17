@@ -11,11 +11,28 @@ let data = {
 
 // actual scrape function
 const scrap = (url) => {
+    if (url !== undefined) {
+        // regex to add https
+        let res = new RegExp("^(https://|http://){1}");
+        if (!res.test(url)) {
+            url = "https://" + url;
+        }
+    }
     return new Promise((resolve, reject) => {
         // request function
         const req = https.request(url, (res) => {
             // get status code
             console.log('statusCode:', res.statusCode);
+            if (res.statusCode != 200) {
+                console.log("error");
+                let data = {
+                    title: 'No title',
+                    description: 'No description available',
+                    image: 'No image available',
+                    url: undefined
+                }
+                resolve(data)
+            }
 
             // writing the file
             res.pipe(writeStream);
@@ -32,7 +49,7 @@ const scrap = (url) => {
                 data.title = $('meta[property="og:title"]').attr('content') || $('title').text() || "No title available";
                 data.description = $('meta[property="og:description"]').attr('content') || "No description available";
                 data.image = $('meta[property="og:image"]').attr('content') || "No image available";
-                data.url = $('meta[property="og:url"]').attr('content') || "No title available";
+                data.url = $('meta[property="og:url"]').attr('content') || url;
 
                 // deleting after we have read the file
                 fs.unlinkSync(path);

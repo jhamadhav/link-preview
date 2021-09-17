@@ -24,7 +24,7 @@ let previewSchema = new Schema({
 });
 
 // make the link
-var Link = mongoose.model("Link", previewSchema);
+var Link = mongoose.model("Link2", previewSchema);
 
 // create a new entry
 const create_new = async (data) => {

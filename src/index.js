@@ -6,6 +6,7 @@ const app = express();
 
 // self made modules
 const pupScraper = require("./pupScraper");
+const httpScraper = require("./httpScraper");
 const { create_new, findByUrl } = require("./myDB");
 
 // port infos
@@ -34,11 +35,19 @@ app.post("/api", async (req, res) => {
 
         // if present
         if (data != undefined) {
-            // console.log(data);
+            console.log("found by URL");
             res.json(data);
         } else {
             // else scrape the web and feed it into the database
-            let scrapData = await pupScraper(url);
+            let scrapData = null;
+            let httpScrapData = await httpScraper(url);
+
+            if (httpScrapData.url == undefined) {
+                scrapData = await pupScraper(url);
+            } else {
+                scrapData = httpScrapData
+            }
+
 
             // if scrapping doesn't fail
             if (scrapData !== null) {
