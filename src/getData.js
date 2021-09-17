@@ -17,14 +17,14 @@ const getTitle = async page => {
             return docTitle;
         }
 
-        let h1 = document.querySelector("h1").innerHTML;
-        if (h1 != null && h1.length > 0) {
-            return h1;
+        let h1 = document.querySelector("h1");
+        if (h1 != null && h1.innerHTML.length > 0) {
+            return h1.innerHTML;
         }
 
-        let h2 = document.querySelector("h1").innerHTML;
-        if (h2 != null && h2.length > 0) {
-            return h2;
+        let h2 = document.querySelector("h1");
+        if (h2 != null && h2.innerHTML.length > 0) {
+            return h2.innerHTML;
         }
         return "undefined";
     });

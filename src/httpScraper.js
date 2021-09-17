@@ -13,8 +13,15 @@ const scrap = (url) => {
     }
     return new Promise(async (resolve, reject) => {
         // request function
-        let reqData = await fetch(url);
-        let page = await reqData.text()
+        let reqData;
+        try {
+            reqData = await fetch(url);
+        } catch (e) {
+            console.log("caught");
+            reject(undefined)
+            return 0;
+        }
+
         console.log('statusCode:', reqData.status);
         if (reqData.status != 200) {
             console.log("error:");
@@ -26,7 +33,7 @@ const scrap = (url) => {
             }
             resolve(data)
         } else {
-
+            let page = await reqData.text()
             // constructing the actual json to send
             let msec_in_7days = 1000 * 60 * 60 * 24 * 7;
             let data = {

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str = [
+            "http://www.googleweblight.com",
+            "http://www.answers.yahoo.com"
+        ]
+
+        const send_url = async (url) => {
+            console.log(url)
+            let data = { "url": url };
+            let options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            };
+            let res = await fetch("http://localhost:8000/api", options);
+            let d = JSON.stringify(await res.json());
+            // console.log(d);
+            return d;
+        };
+
+        (async () => {
+
+            for (let i = 0; i < str.length; i++) {
+                let d = await send_url(str[i])
+                console.log(JSON.parse(d))
+            }
+        })();
+
+
+
+    </script>
+</body>
+
+</html>

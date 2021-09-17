@@ -22,6 +22,13 @@ app.get("/", (request, response) => {
     response.sendFile(__dirname + "/public/index.html");
 });
 
+
+let err_res = {
+    title: "Error : 404",
+    description: "URL is incorrect | Try adding https protocol",
+    url: undefined
+}
+
 // api point to send the url 
 app.post("/api", async (req, res) => {
     let url = req.body.url;
@@ -31,7 +38,7 @@ app.post("/api", async (req, res) => {
     if (validURL(url)) {
 
         // if url us correct find it in the database
-        let data = await findByUrl(url);
+        let data = undefined//await findByUrl(url);
 
         // if present
         if (data != undefined) {
@@ -40,18 +47,28 @@ app.post("/api", async (req, res) => {
         } else {
             // else scrape the web and feed it into the database
             let scrapData = null;
-            let httpScrapData = await httpScraper(url);
+            let httpScrapData;
+            try {
+                httpScrapData = await httpScraper(url);
+            } catch (e) {
+                res.json(err_res);
+            }
             console.log(httpScrapData);
 
             if (notDefined(httpScrapData)) {
-                scrapData = await pupScraper(url);
+                try {
+                    scrapData = await pupScraper(url);
+                } catch (e) {
+                    res.json(err_res);
+                }
+
             } else {
                 scrapData = httpScrapData
             }
 
             // if scrapping doesn't fail
             if (scrapData !== null) {
-                create_new(scrapData);
+                // create_new(scrapData);
                 res.json(scrapData);
             } else {
                 let err_res = {
@@ -66,11 +83,7 @@ app.post("/api", async (req, res) => {
     } else {
         //if url is incorrect then send internal error
         // if url entered is wrong then a follow back json
-        let err_res = {
-            title: "Error : 404",
-            description: "URL is incorrect | Try adding https protocol",
-            url: undefined
-        }
+
         res.json(err_res);
     }
 
@@ -82,7 +95,7 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 
 // function to check url
 const validURL = (str) => {
-    var pattern = new RegExp('^(https:\\/\\/)?' + // protocol
+    var pattern = new RegExp('^(https:\\/\\/|http:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
@@ -92,6 +105,9 @@ const validURL = (str) => {
 }
 
 const notDefined = (data) => {
+    if (data == undefined) {
+        return true
+    }
     if (data.title == undefined) {
         return true
     }
