@@ -31,7 +31,7 @@ app.post("/api", async (req, res) => {
     if (validURL(url)) {
 
         // if url us correct find it in the database
-        let data = undefined //await findByUrl(url);
+        let data = await findByUrl(url);
 
         // if present
         if (data != undefined) {
@@ -43,16 +43,15 @@ app.post("/api", async (req, res) => {
             let httpScrapData = await httpScraper(url);
             console.log(httpScrapData);
 
-            if (httpScrapData.url == undefined) {
+            if (notDefined(httpScrapData)) {
                 scrapData = await pupScraper(url);
             } else {
                 scrapData = httpScrapData
             }
 
-
             // if scrapping doesn't fail
             if (scrapData !== null) {
-                // create_new(scrapData);
+                create_new(scrapData);
                 res.json(scrapData);
             } else {
                 let err_res = {
@@ -90,4 +89,22 @@ const validURL = (str) => {
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(str);
+}
+
+const notDefined = (data) => {
+    if (data.title == undefined) {
+        return true
+    }
+    if (data.description == undefined) {
+        return true
+    }
+    if (data.image == undefined) {
+        return true
+    }
+    if (data.url == undefined) {
+        return true
+    }
+
+    return false
+
 }

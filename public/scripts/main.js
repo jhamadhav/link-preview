@@ -5,15 +5,6 @@ window.onload = () => {
     // print the data stored
     // console.log(links)
 
-    // show link when hovered
-    document.addEventListener("mouseover", (e) => {
-        let url = e.target.parentNode.href || e.target.href;
-        // console.log(url);
-        if (validURL(url)) {
-            get_data(url);
-        }
-    });
-
     // for custom button
     document.getElementById("search").onclick = () => {
         let a = document.getElementById("inp").value;
@@ -22,7 +13,7 @@ window.onload = () => {
 
     document.addEventListener("keypress", (e) => {
         // console.log(e);
-        if (e.keyCode == 13) {
+        if (e.key == 'Enter') {
             let a = document.getElementById("inp").value;
             get_data(a);
         }
@@ -122,7 +113,7 @@ const show_preview = async (data) => {
     // add event listener to the link-preview element so it takes to the url that it shows
     if (obj["url"] !== undefined) {
         document.getElementById("link-preview").addEventListener("click", () => {
-            window.open(obj.url)
+            window.open(obj["url"])
         });
     } else {
         document.getElementById("link-preview").addEventListener("click", () => {
