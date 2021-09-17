@@ -1,16 +1,9 @@
-const https = require("https");
-const fs = require("fs");
-const path = "./index.html";
-const { getTitle, getDescription, getImage } = require("./getData");
-// parser
-const cheerio = require('cheerio');
-const writeStream = fs.createWriteStream(path, "utf-8");
-let data = {
-    time: Date.now()
-};
+const fetch = require('cross-fetch');
+const { getTitle, getDescription, getImage } = require("./getHttpData");
 
 // actual scrape function
 const scrap = (url) => {
+    let urlInit = url;
     if (url !== undefined) {
         // regex to add https
         let res = new RegExp("^(https://|http://){1}");
@@ -18,53 +11,33 @@ const scrap = (url) => {
             url = "https://" + url;
         }
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         // request function
-        const req = https.request(url, (res) => {
-            // get status code
-            console.log('statusCode:', res.statusCode);
-            if (res.statusCode != 200) {
-                console.log("error");
-                let data = {
-                    title: 'No title',
-                    description: 'No description available',
-                    image: 'No image available',
-                    url: undefined
-                }
-                resolve(data)
+        let reqData = await fetch(url);
+        let page = await reqData.text()
+        console.log('statusCode:', reqData.status);
+        if (reqData.status != 200) {
+            console.log("error:");
+            let data = {
+                title: 'No title',
+                description: 'No description available',
+                image: 'No image available',
+                url: undefined
             }
+            resolve(data)
+        } else {
 
-            // writing the file
-            res.pipe(writeStream);
-
-            //once it has been written reading it
-            writeStream.on('finish', () => {
-
-                let res = fs.readFileSync(path, "utf-8");
-                // console.log(readStream);
-
-                // use html parser to get meta tags value
-                let $ = cheerio.load(res.toString());
-
-                data.title = $('meta[property="og:title"]').attr('content') || $('title').text() || "No title available";
-                data.description = $('meta[property="og:description"]').attr('content') || "No description available";
-                data.image = $('meta[property="og:image"]').attr('content') || "No image available";
-                data.url = $('meta[property="og:url"]').attr('content') || url;
-
-                // deleting after we have read the file
-                fs.unlinkSync(path);
-
-                resolve(data);
-
-            });
-
-        });
-
-        req.on('error', (e) => {
-            console.error(e);
-            reject(e);
-        });
-        req.end();
+            // constructing the actual json to send
+            let msec_in_7days = 1000 * 60 * 60 * 24 * 7;
+            let data = {
+                "time": Date.now() + msec_in_7days,
+                "title": getTitle(page),
+                "description": getDescription(page),
+                "image": getImage(page, url),
+                "url": urlInit
+            };
+            resolve(data);
+        }
     })
 
 }

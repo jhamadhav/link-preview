@@ -31,7 +31,7 @@ app.post("/api", async (req, res) => {
     if (validURL(url)) {
 
         // if url us correct find it in the database
-        let data = await findByUrl(url);
+        let data = undefined //await findByUrl(url);
 
         // if present
         if (data != undefined) {
@@ -41,6 +41,7 @@ app.post("/api", async (req, res) => {
             // else scrape the web and feed it into the database
             let scrapData = null;
             let httpScrapData = await httpScraper(url);
+            console.log(httpScrapData);
 
             if (httpScrapData.url == undefined) {
                 scrapData = await pupScraper(url);
@@ -51,7 +52,7 @@ app.post("/api", async (req, res) => {
 
             // if scrapping doesn't fail
             if (scrapData !== null) {
-                create_new(scrapData);
+                // create_new(scrapData);
                 res.json(scrapData);
             } else {
                 let err_res = {
