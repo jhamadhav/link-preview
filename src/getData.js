@@ -30,10 +30,13 @@ const getTitle = async page => {
     });
 
     // limiting the length if found
-    if (title.length > 70) {
+    if (title != null && title.length > 70) {
         title = title.substring(0, 70) + "...";
     }
-    title = title.trim();
+    if (title != null) {
+
+        title = title.trim();
+    }
 
     return title;
 };
@@ -76,10 +79,13 @@ const getDescription = async page => {
     });
 
     // limiting the length
-    if (description.length > 200) {
+    if (description != null && description.length > 200) {
         description = description.substring(0, 200) + "...";
     }
-    description = description.trim();
+    if (description != null) {
+
+        description = description.trim();
+    }
 
     return description;
 };
@@ -124,6 +130,9 @@ const getImage = async (page, url) => {
     if (img != undefined) {
         let res = new RegExp("^(https://){1}");
         if (!res.test(img)) {
+            if (img[0] == '.') {
+                img = img.substring(1)
+            }
             image = url + img;
         }
     }

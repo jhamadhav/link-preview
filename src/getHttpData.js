@@ -39,7 +39,9 @@ const getTitle = (page) => {
     if (title != null && title.length > 70) {
         title = title.substring(0, 70) + "...";
     }
-    title = title.trim();
+    if (title != null) {
+        title = title.trim();
+    }
 
     return title;
 };
@@ -86,7 +88,10 @@ const getDescription = page => {
     if (description != null && description.length > 200) {
         description = description.substring(0, 200) + "...";
     }
-    description = description.trim();
+    if (description != null) {
+
+        description = description.trim();
+    }
 
     return description;
 };
