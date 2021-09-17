@@ -5,7 +5,7 @@ const app = express();
 
 
 // self made modules
-const scraper = require("./scraper");
+const pupScraper = require("./pupScraper");
 const { create_new, findByUrl } = require("./myDB");
 
 // port infos
@@ -38,7 +38,7 @@ app.post("/api", async (req, res) => {
             res.json(data);
         } else {
             // else scrape the web and feed it into the database
-            let scrapData = await scraper(url);
+            let scrapData = await pupScraper(url);
 
             // if scrapping doesn't fail
             if (scrapData !== null) {

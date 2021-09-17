@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const scraper = require("./scraper");
+const scraper = require("./pupScraper");
 const dotenv = require('dotenv').config({ path: __dirname + "/../.env" });
 
 
